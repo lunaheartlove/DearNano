@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <title>คืนดีกันได้มั้ย</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Mali', cursive;
+            background: linear-gradient(to right, #f7b7d2, #FFFFFF, #cdb4db);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* การ์ดหลัก (เหมือนหน้า Puzzle) */
+        .card {
+            background: #fff;
+            border-radius: 25px;
+            padding: 40px 60px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border: 2px solid #E86C8D;
+            max-width: 600px;
+            width: 90%;
+        }
+
+        .heart {
+            font-size: 60px;
+            margin-bottom: 16px;
+            animation: beat 1.5s infinite;
+        }
+
+        @keyframes beat {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.15);
+            }
+        }
+
+        .text {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 36px;
+            color: #5C3A42;
+        }
+
+        .btn-area {
+            position: relative;
+            height: 120px;
+        }
+
+        button {
+            font-family: 'Mali', cursive;
+            padding: 10px 22px;
+            border-radius: 999px;
+            border: none;
+            background: #E86C8D;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(232, 108, 141, 0.35);
+            transition: 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 22px rgba(232, 108, 141, 0.45);
+        }
+
+        #noBtn {
+            background: #ddd;
+            color: #555;
+            position: absolute;
+            left: 50%;
+            top: 60px;
+            transform: translateX(-50%);
+        }
+
+        /* ---------- Popup ---------- */
+        .popup-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.35);
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .popup-overlay.show {
+            display: flex;
+        }
+
+        .popup {
+            background: #FFF9FF;
+            border-radius: 20px;
+            padding: 24px 26px;
+            max-width: 320px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            animation: fadeUp 0.3s ease;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .popup p {
+            font-size: 15px;
+            color: #5C3A42;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        /* =========================
+   Responsive Add-on
+========================= */
+
+        /* ---------- โทรศัพท์เล็กมาก (≤ 360px) ---------- */
+        @media (max-width: 360px) {
+            .card {
+                padding: 24px 18px;
+                border-radius: 20px;
+            }
+
+            .heart {
+                font-size: 48px;
+                margin-bottom: 12px;
+            }
+
+            .text {
+                font-size: 15px;
+                margin-bottom: 28px;
+            }
+
+            .btn-area {
+                height: 100px;
+            }
+
+            button {
+                font-size: 14px;
+                padding: 8px 18px;
+            }
+        }
+
+        /* ---------- โทรศัพท์ทั่วไป (361–480px) ---------- */
+        @media (min-width: 361px) and (max-width: 480px) {
+            .card {
+                padding: 28px 22px;
+                border-radius: 22px;
+            }
+
+            .heart {
+                font-size: 52px;
+            }
+
+            .text {
+                font-size: 16px;
+            }
+
+            .btn-area {
+                height: 110px;
+            }
+        }
+
+        /* ---------- มือถือจอใหญ่ / Phablet (481–599px) ---------- */
+        @media (min-width: 481px) and (max-width: 599px) {
+            .card {
+                padding: 32px 28px;
+                border-radius: 24px;
+            }
+
+            .heart {
+                font-size: 56px;
+            }
+
+            .text {
+                font-size: 17px;
+            }
+        }
+
+        /* ---------- iPad / Tablet (600–1024px) ---------- */
+        @media (min-width: 600px) and (max-width: 1024px) {
+            .card {
+                padding: 36px 40px;
+                border-radius: 25px;
+            }
+
+            .heart {
+                font-size: 60px;
+            }
+
+            .text {
+                font-size: 18px;
+            }
+        }
+
+        /* ---------- แนวนอน / จอเตี้ย ---------- */
+        @media (orientation: landscape) and (max-height: 420px) {
+            body {
+                padding: 12px;
+            }
+
+            .card {
+                padding: 20px 18px;
+            }
+
+            .heart {
+                font-size: 44px;
+                margin-bottom: 10px;
+            }
+
+            .text {
+                font-size: 14px;
+                margin-bottom: 20px;
+            }
+
+            .btn-area {
+                height: 90px;
+            }
+
+            button {
+                font-size: 13px;
+                padding: 7px 16px;
+            }
+        }
+
+        /* ---------- ผู้ใช้ลด Motion ---------- */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+        <div class="heart">🤍</div>
+
+        <!-- อิอิ-->
+        <p class="text">
+            เอาตามตัวอย่างเปลี่ยนเราเป็น“เค้า”เธอเป็น“นาโน”
+        </p>
+
+        <div class="btn-area">
+            <button id="yesBtn">ดีกันนะ</button>
+            <button id="noBtn">ยังไม่หาย</button>
+        </div>
+    </div>
+
+    <!-- Popup -->
+    <div class="popup-overlay" id="popup">
+        <div class="popup">
+            <p>
+                ขอบคุณนะที่ให้โอกาสเราอีกครั้ง 🤍<br>
+                เราจะพยายามดูแลให้ดีกว่านี้
+            </p>
+            <button id="closePopup">กลับไปหน้าแรก</button>
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const popup = document.getElementById('popup');
+        const closePopup = document.getElementById('closePopup');
+
+        let escapeCount = 0;
+
+        noBtn.addEventListener('mouseenter', () => {
+            escapeCount++;
+            const x = Math.random() * 200 - 100;
+            const y = Math.random() * 80 - 40;
+            noBtn.style.transform = `translate(${x}px, ${y}px)`;
+
+            if (escapeCount >= 10) {
+                noBtn.style.display = 'none';
+            }
+        });
+
+        yesBtn.addEventListener('click', () => {
+            popup.classList.add('show');
+        });
+
+        closePopup.addEventListener('click', () => {
+            window.location.href = 'index.html';
+        });
+
+        function escapeNoBtn() {
+            escapeCount++;
+
+            const x = Math.random() * 200 - 100;
+            const y = Math.random() * 80 - 40;
+            noBtn.style.transform = `translate(${x}px, ${y}px)`;
+
+            if (escapeCount >= 10) {
+                noBtn.style.display = 'none';
+            }
+        }
+
+        // เมาส์
+        noBtn.addEventListener('mouseenter', escapeNoBtn);
+
+        // มือถือ
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // กันการกดจริง
+            escapeNoBtn();
+        });
+
+    </script>
+
+</body>
+
+</html>
